@@ -1,3 +1,2 @@
-`npm install express`
-`npm install ssh2`
+`npm install`
 `node server.js`
