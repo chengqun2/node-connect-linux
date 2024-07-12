@@ -10,7 +10,7 @@ module.exports = {
                 res.status(200).json(user)
             }
         ).catch(error => {
-            res.status(200).json(error)
+            res.status(500).json(error)
         });
     },
     getUser: (req, res) => {
@@ -18,7 +18,7 @@ module.exports = {
         const user = User.findByPk(id).then(user => {
             res.status(200).json(user)
         }).catch(error => {
-            res.status(200).json(error)
+            res.status(500).json(error)
         });
     },
     getAll: (req, res) => {
@@ -35,7 +35,7 @@ module.exports = {
         }).then(users => {
             res.status(200).json(users)
         }).catch(error => {
-            res.status(200).json(error)
+            res.status(500).json(error)
         });
     }
 }
