@@ -13,7 +13,9 @@ module.exports = {
         const serverConfig = req.body.serverConfig
         executeCommand(command, serverConfig).then(function (data) {
             res.status(200).json(data);
-        })
+        }).catch(error => {
+            res.status(500).json(error)
+        });
     }
 }
 
