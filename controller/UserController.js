@@ -26,6 +26,7 @@ module.exports = {
         console.log(queryParams)
         const email = req.query.email;
         console.log(email)
+        let result;
         const users = User.findAll({
             where: {
                 email: {
@@ -33,7 +34,11 @@ module.exports = {
                 }
             }
         }).then(users => {
-            res.status(200).json(users)
+            result = {
+                total: users.length,
+                users: users
+            }
+            res.status(200).json(result)
         }).catch(error => {
             res.status(500).json(error)
         });
