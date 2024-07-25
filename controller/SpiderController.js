@@ -5,8 +5,10 @@ const pretty = require("pretty");
 module.exports = {
     getTitle: (req, res) => {
         const url = req.body.url
+        let result
         getTitleFromUrl(url).then(function (data) {
-            res.status(200).json(data);
+            result = { "title": data }
+            res.status(200).json(result);
         }).catch(error => {
             res.status(500).json(error)
         });
