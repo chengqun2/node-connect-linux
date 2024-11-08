@@ -22,18 +22,22 @@ module.exports = {
 function executeCommand(command, serverConfig) {
     return new Promise((resolve, reject) => {
         const conn = new Client();
-        conn.on('ready', () => {
-            conn.exec(command, (err, stream) => {
-                if (err) throw err;
-                stream.on('data', (data) => {
-                    resolve(`${data}`);
-                }).on('close', (code, signal) => {
-                    conn.end();
-                }).stderr.on('data', (data) => {
-                    console.log(`STDERR: ${data}`);
-                    reject(`STDERR: ${data}`);
+        try{
+            conn.on('ready', () => {
+                conn.exec(command, (err, stream) => {
+                    if (err) throw err;
+                    stream.on('data', (data) => {
+                        resolve(`${data}`);
+                    }).on('close', (code, signal) => {
+                        conn.end();
+                    }).stderr.on('data', (data) => {
+                        console.log(`STDERR: ${data}`);
+                        reject(`STDERR: ${data}`);
+                    });
                 });
-            });
-        }).connect(serverConfig);
+            }).connect(serverConfig);
+        }catch(error){
+            console.error(error);
+        }
     });
 }
